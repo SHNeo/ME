@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Mechanical Dept | Rotating Gear Assembly</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: #0f172a;
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      overflow: hidden;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 10px;
+      z-index: 10;
+    }
+    .header h1 {
+      font-size: 1.3rem;
+      color: #f59e0b;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .header p {
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+
+    /* Fixed Aspect Ratio Viewport */
+    .viewport {
+      position: relative;
+      width: 100%;
+      max-width: 360px;
+      height: 480px;
+      background: #1e293b;
+      border: 3px solid #f59e0b;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      overflow: hidden;
+    }
+
+    .gear-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: center center;
+    }
+
+    /* Gear Continuous Rotation Animation */
+    .rotating-gear {
+      transform-origin: 180px 240px;
+      animation: spinGear 20s linear infinite;
+    }
+    .rotating-gear.paused {
+      animation-play-state: paused;
+    }
+
+    @keyframes spinGear {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Blinking Gear Teeth Styling */
+    .blinking-tooth {
+      cursor: pointer;
+      animation: pulseGlow 1.4s infinite alternate ease-in-out;
+    }
+    .blinking-tooth:hover {
+      filter: brightness(1.3);
+    }
+
+    @keyframes pulseGlow {
+      0% {
+        fill: #38bdf8;
+        stroke: #e0f2fe;
+        stroke-width: 2;
+        filter: drop-shadow(0 0 3px #38bdf8);
+      }
+      100% {
+        fill: #fef08a;
+        stroke: #f59e0b;
+        stroke-width: 3;
+        filter: drop-shadow(0 0 12px #f59e0b);
+      }
+    }
+
+    /* Standard Non-Interactive Gear Teeth */
+    .static-tooth {
+      fill: #475569;
+      stroke: #334155;
+      stroke-width: 1.5;
+    }
+
+    /* Message Modal Overlay */
+    .modal {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15, 23, 42, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      z-index: 100;
+      padding: 20px;
+    }
+    .modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-content {
+      background: #ffffff;
+      color: #0f172a;
+      border-radius: 12px;
+      padding: 24px;
+      max-width: 320px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      transform: scale(0.8);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .modal.active .modal-content {
+      transform: scale(1);
+    }
+    .modal-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #d97706;
+      margin-bottom: 12px;
+    }
+    .modal-msg {
+      font-size: 0.95rem;
+      color: #334155;
+      font-style: italic;
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+    .modal-author {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #64748b;
+      margin-bottom: 20px;
+    }
+    .btn-close {
+      background: #d97706;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Happy Teachers' Day 2026</h1>
+    <p>Tap a glowing gear tooth to unlock a message!</p>
+  </div>
+
+  <div class="viewport">
+    <svg id="gearSvg" class="gear-svg" viewBox="0 0 360 480" preserveAspectRatio="xMidYMid meet">
+      
+      <!-- Workshop Grid & Pitch Circle Guides -->
+      <line x1="180" y1="0" x2="180" y2="480" stroke="#334155" stroke-width="1" stroke-dasharray="4,4"/>
+      <line x1="0" y1="240" x2="360" y2="240" stroke="#334155" stroke-width="1" stroke-dasharray="4,4"/>
+      <circle cx="180" cy="240" r="150" fill="none" stroke="#334155" stroke-width="1" stroke-dasharray="6,6"/>
+
+      <!-- ROTATING 3D SPUR GEAR ASSEMBLY -->
+      <g id="mainGear" class="rotating-gear">
+        
+        <!-- 3D Bevel/Shadow Layer behind Gear Body -->
+        <circle cx="182" cy="242" r="120" fill="#0f172a" />
+        <circle cx="180" cy="240" r="120" fill="#334155" stroke="#f59e0b" stroke-width="4"/>
+
+        <!-- GEAR TEETH (12 Total Teeth arranged in 30° radial increments) -->
+
+        <!-- Tooth 1: Top (0° / 360°) - INTERACTIVE BLINKING -->
+        <g class="blinking-tooth" transform="rotate(0, 180, 240)" onclick="openTooth(1, event)">
+          <path d="M 166 120 L 170 95 L 190 95 L 194 120 Z" rx="2"/>
+          <text x="180" y="112" font-size="9" fill="#0f172a" font-weight="bold" text-anchor="middle">✉️</text>
+        </g>
+
+        <!-- Tooth 2: 30° - Static -->
+        <path d="M 166 120 L 170 95 L 190 95 L 194 120 Z" class="static-tooth" transform="rotate(30, 180, 240)"/>
+
+        <!-- Tooth 3: 60° - Static -->
+        <path d="M 166 120 L 170 95 L 190 95 L 194 120 Z" class="static-tooth" transform="rotate(60, 180, 240)"/>
+
+        <!-- Tooth 4: Right (90°) - INTERACTIVE BLINKING -->
+        <g class="blinking-tooth" transform="rotate(90, 180, 240)" onclick="openTooth(2, event)">
+          <path d="M 166 120 L 170 95 L 190 95 L 194 120 Z" rx="2"/>
+          <text x="180" y="112" font-size="9" fill="#0f172a" font-weight="bold" text-anchor="middle">✉️</text>
+        </g>
+
+        <!-- Tooth 5: 120° - Static -->
+        <path d="M 166 120 L 170 95 L 190 95 L 194 120 Z" class="static-tooth" transform="rotate(120, 180, 240)"/>
+
+        <!-- Tooth 6: 150° - Static -->
+        <path d="M 166 120 L 170 95 L 190 95 L 194 120 Z" class="static-tooth" transform="rotate(150, 180, 240)"/>
+
+        <!-- Tooth 7: Bottom (180°) - INTERACTIVE BLINKING -->
+        <g class="blinking-tooth" transform="rotate(180, 180, 240)" onclick="openTooth(3, event)">
+          <path d="M 166 120 L 170 95 L 190 95 L 194 120 Z" rx="2"/>
+          <text x="180" y="112" font-size="9" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(180, 180, 110)">✉️</text>
+        </g>
+
+        <!-- Tooth 8: 210° - Static -->
+        <path d="M 166 120 L 170 95 L 190 95 L 194 120 Z" class="static-tooth" transform="rotate(210, 180, 240)"/>
+
+        <!-- Tooth 9: 240° - Static -->
+        <path d="M 166 120 L 170 95 L 190 95 L 194 120 Z" class="static-tooth" transform="rotate(240, 180, 240)"/>
+
+        <!-- Tooth 10: Left (270°) - INTERACTIVE BLINKING -->
+        <g class="blinking-tooth" transform="rotate(270, 180, 240)" onclick="openTooth(4, event)">
+          <path d="M 166 120 L 170 95 L 190 95 L 194 120 Z" rx="2"/>
+          <text x="180" y="112" font-size="9" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(90, 180, 110)">✉️</text>
+        </g>
+
+        <!-- Tooth 11: 300° - Static -->
+        <path d="M 166 120 L 170 95 L 190 95 L 194 120 Z" class="static-tooth" transform="rotate(300, 180, 240)"/>
+
+        <!-- Tooth 12: 330° - Static -->
+        <path d="M 166 120 L 170 95 L 190 95 L 194 120 Z" class="static-tooth" transform="rotate(330, 180, 240)"/>
+
+        <!-- GEAR INNER HUB & LIGHTENING CUTOUTS -->
+        <!-- Lightening Holes -->
+        <circle cx="180" cy="180" r="22" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+        <circle cx="240" cy="240" r="22" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+        <circle cx="180" cy="300" r="22" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+        <circle cx="120" cy="240" r="22" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+
+        <!-- Center Hub Boss & Keyway Shaft -->
+        <circle cx="180" cy="240" r="45" fill="#334155" stroke="#f59e0b" stroke-width="3"/>
+        <circle cx="180" cy="240" r="22" fill="#0f172a"/>
+        <!-- Shaft Keyway Notch -->
+        <rect x="175" y="213" width="10" height="10" fill="#0f172a"/>
+      </g>
+
+    </svg>
+  </div>
+
+  <!-- Message Modal Overlay -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <div class="modal-title" id="msgTitle">Gear Tooth #1</div>
+      <div class="modal-msg" id="msgBody">"Message content..."</div>
+      <div class="modal-author" id="msgAuthor">— Mechanical Student</div>
+      <button class="btn-close" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const messages = {
+      1: { 
+        title: "Drive Tooth (0°)", 
+        text: "Thank you for driving our technical passion forward and keeping our studies running smoothly!", 
+        author: "— Mechanical Engineering Class A" 
+      },
+      2: { 
+        title: "Power Tooth (90°)", 
+        text: "Appreciate all your high torque, energy, and dedication during our CAD and thermodynamics modules!", 
+        author: "— Mechanical Technology Year 1" 
+      },
+      3: { 
+        title: "Support Tooth (180°)", 
+        text: "Thank you for always being our reliable pillar of support in workshops and project labs!", 
+        author: "— Automotive & Mechanical Year 2" 
+      },
+      4: { 
+        title: "Precision Tooth (270°)", 
+        text: "Happy Teachers' Day! Thank you for helping us mesh concepts together with perfect precision!", 
+        author: "— Final Year Project Team" 
+      }
+    };
+
+    let isBusy = false;
+
+    function openTooth(id, event) {
+      if (isBusy) return;
+      isBusy = true;
+
+      const mainGear = document.getElementById('mainGear');
+      const gearSvg = document.getElementById('gearSvg');
+
+      // 1. Pause gear spin animation at exact current angle
+      mainGear.classList.add('paused');
+
+      // 2. Calculate tapped tooth position relative to screen box
+      const svgRect = gearSvg.getBoundingClientRect();
+      const clickX = event.clientX - svgRect.left;
+      const clickY = event.clientY - svgRect.top;
+
+      // 3. Smoothly zoom camera into the tapped tooth position
+      gearSvg.style.transformOrigin = `${clickX}px ${clickY}px`;
+      gearSvg.style.transform = 'scale(2.2)';
+
+      // 4. Open Modal popup with message
+      setTimeout(() => {
+        document.getElementById('msgTitle').innerText = messages[id].title;
+        document.getElementById('msgBody').innerText = `"${messages[id].text}"`;
+        document.getElementById('msgAuthor').innerText = messages[id].author;
+        document.getElementById('modal').classList.add('active');
+      }, 700);
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+      const gearSvg = document.getElementById('gearSvg');
+      const mainGear = document.getElementById('mainGear');
+
+      // Reset camera zoom & resume rotation
+      setTimeout(() => {
+        gearSvg.style.transform = 'scale(1)';
+        mainGear.classList.remove('paused');
+        isBusy = false;
+      }, 300);
+    }
+  </script>
+
+</body>
+</html>
