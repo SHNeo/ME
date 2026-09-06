@@ -60,28 +60,19 @@
       transform-origin: center center;
     }
 
-    /* Gear Continuous Rotation Animations */
-    .rotating-gear-cw {
+    /* Single Gear Continuous Rotation Animation */
+    .single-gear {
       transform-origin: 180px 240px;
       animation: spinCW 24s linear infinite;
     }
-    .rotating-gear-ccw {
-      transform-origin: 180px 240px;
-      animation: spinCCW 18s linear infinite;
-    }
 
-    .rotating-gear-cw.paused,
-    .rotating-gear-ccw.paused {
+    .single-gear.paused {
       animation-play-state: paused;
     }
 
     @keyframes spinCW {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
-    }
-    @keyframes spinCCW {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(-360deg); }
     }
 
     /* Blinking Interactive Gear Teeth */
@@ -108,11 +99,14 @@
       }
     }
 
-    /* Static Non-Interactive Elements */
-    .static-tooth {
-      fill: #475569;
-      stroke: #334155;
-      stroke-width: 1.5;
+    /* Engraved Circular Text Styling */
+    .engraved-text {
+      font-size: 11px;
+      font-weight: 800;
+      fill: #fef08a;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-shadow: 0 0 4px rgba(245, 158, 11, 0.5);
     }
 
     /* Message Modal Overlay */
@@ -184,106 +178,120 @@
 
   <div class="header">
     <h1>Happy Teachers' Day 2026</h1>
-    <p>Tap any of the 10 glowing gear components to unlock a message!</p>
+    <p>Tap any of the 10 glowing gear teeth to unlock a message!</p>
   </div>
 
   <div class="viewport">
     <svg id="gearSvg" class="gear-svg" viewBox="0 0 360 480" preserveAspectRatio="xMidYMid meet">
       
+      <!-- Workshop Grid Guidelines -->
       <line x1="180" y1="0" x2="180" y2="480" stroke="#334155" stroke-width="1" stroke-dasharray="4,4"/>
       <line x1="0" y1="240" x2="360" y2="240" stroke="#334155" stroke-width="1" stroke-dasharray="4,4"/>
-      <circle cx="180" cy="240" r="165" fill="none" stroke="#334155" stroke-width="1" stroke-dasharray="6,6"/>
-      <circle cx="180" cy="240" r="110" fill="none" stroke="#334155" stroke-width="1" stroke-dasharray="6,6"/>
+      <circle cx="180" cy="240" r="160" fill="none" stroke="#334155" stroke-width="1" stroke-dasharray="6,6"/>
 
-      <g id="mainGear" class="rotating-gear-cw">
+      <!-- DEFINITIONS FOR CIRCULAR ENGRAVING PATHS -->
+      <defs>
+        <!-- Top Arc Path for Surprises -->
+        <path id="topArc" d="M 85,240 A 95,95 0 1,1 275,240" fill="none"/>
+        <!-- Bottom Arc Path for Recipient Name -->
+        <path id="bottomArc" d="M 275,240 A 95,95 0 0,1 85,240" fill="none"/>
+      </defs>
+
+      <!-- SINGLE INTEGRATED ROTATING GEAR -->
+      <g id="mainGear" class="single-gear">
         
-        <circle cx="182" cy="242" r="150" fill="#0f172a" />
-        <circle cx="180" cy="240" r="150" fill="#1e293b" stroke="#334155" stroke-width="6"/>
+        <!-- Gear Body Face -->
+        <circle cx="180" cy="240" r="140" fill="#334155" stroke="#f59e0b" stroke-width="3"/>
+        <circle cx="180" cy="240" r="105" fill="#0f172a" stroke="#475569" stroke-width="2"/>
 
+        <!-- CIRCULAR ENGRAVED TEXT ON GEAR FACE -->
+        <text class="engraved-text">
+          <textPath href="#topArc" startOffset="50%" text-anchor="middle">
+            A LITTLE TEACHERS' DAY SURPRISE
+          </textPath>
+        </text>
+        <text class="engraved-text">
+          <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">
+            TO MR LIM SHIUN CHENG
+          </textPath>
+        </text>
+
+        <!-- Center Hub Boss & Keyway Shaft -->
+        <circle cx="180" cy="240" r="32" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+        <circle cx="180" cy="240" r="16" fill="#0f172a"/>
+        <rect x="175" y="220" width="10" height="8" fill="#0f172a"/>
+
+        <!-- 10 INTERACTIVE SPUR TEETH (36° APART) -->
+
+        <!-- Tooth 1 (0°) -->
         <g class="blinking-tooth" transform="rotate(0, 180, 240)" onclick="openTooth(1, event)">
-          <path d="M 168 90 L 172 65 L 188 65 L 192 90 Z"/>
-          <text x="180" y="80" font-size="9" fill="#0f172a" font-weight="bold" text-anchor="middle">1</text>
+          <path d="M 166 100 L 171 68 L 189 68 L 194 100 Z"/>
+          <text x="180" y="86" font-size="10" fill="#0f172a" font-weight="bold" text-anchor="middle">1</text>
         </g>
 
-        <path d="M 168 90 L 172 65 L 188 65 L 192 90 Z" class="static-tooth" transform="rotate(30, 180, 240)"/>
-
-        <g class="blinking-tooth" transform="rotate(60, 180, 240)" onclick="openTooth(2, event)">
-          <path d="M 168 90 L 172 65 L 188 65 L 192 90 Z"/>
-          <text x="180" y="80" font-size="9" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(-60, 180, 77)">2</text>
+        <!-- Tooth 2 (36°) -->
+        <g class="blinking-tooth" transform="rotate(36, 180, 240)" onclick="openTooth(2, event)">
+          <path d="M 166 100 L 171 68 L 189 68 L 194 100 Z"/>
+          <text x="180" y="86" font-size="10" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(-36, 180, 83)">2</text>
         </g>
 
-        <path d="M 168 90 L 172 65 L 188 65 L 192 90 Z" class="static-tooth" transform="rotate(90, 180, 240)"/>
-
-        <g class="blinking-tooth" transform="rotate(120, 180, 240)" onclick="openTooth(3, event)">
-          <path d="M 168 90 L 172 65 L 188 65 L 192 90 Z"/>
-          <text x="180" y="80" font-size="9" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(-120, 180, 77)">3</text>
+        <!-- Tooth 3 (72°) -->
+        <g class="blinking-tooth" transform="rotate(72, 180, 240)" onclick="openTooth(3, event)">
+          <path d="M 166 100 L 171 68 L 189 68 L 194 100 Z"/>
+          <text x="180" y="86" font-size="10" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(-72, 180, 83)">3</text>
         </g>
 
-        <path d="M 168 90 L 172 65 L 188 65 L 192 90 Z" class="static-tooth" transform="rotate(150, 180, 240)"/>
-
-        <g class="blinking-tooth" transform="rotate(180, 180, 240)" onclick="openTooth(4, event)">
-          <path d="M 168 90 L 172 65 L 188 65 L 192 90 Z"/>
-          <text x="180" y="80" font-size="9" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(180, 180, 77)">4</text>
+        <!-- Tooth 4 (108°) -->
+        <g class="blinking-tooth" transform="rotate(108, 180, 240)" onclick="openTooth(4, event)">
+          <path d="M 166 100 L 171 68 L 189 68 L 194 100 Z"/>
+          <text x="180" y="86" font-size="10" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(-108, 180, 83)">4</text>
         </g>
 
-        <path d="M 168 90 L 172 65 L 188 65 L 192 90 Z" class="static-tooth" transform="rotate(210, 180, 240)"/>
-
-        <g class="blinking-tooth" transform="rotate(240, 180, 240)" onclick="openTooth(5, event)">
-          <path d="M 168 90 L 172 65 L 188 65 L 192 90 Z"/>
-          <text x="180" y="80" font-size="9" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(120, 180, 77)">5</text>
+        <!-- Tooth 5 (144°) -->
+        <g class="blinking-tooth" transform="rotate(144, 180, 240)" onclick="openTooth(5, event)">
+          <path d="M 166 100 L 171 68 L 189 68 L 194 100 Z"/>
+          <text x="180" y="86" font-size="10" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(-144, 180, 83)">5</text>
         </g>
 
-        <path d="M 168 90 L 172 65 L 188 65 L 192 90 Z" class="static-tooth" transform="rotate(270, 180, 240)"/>
-
-        <g class="blinking-tooth" transform="rotate(300, 180, 240)" onclick="openTooth(6, event)">
-          <path d="M 168 90 L 172 65 L 188 65 L 192 90 Z"/>
-          <text x="180" y="80" font-size="9" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(60, 180, 77)">6</text>
+        <!-- Tooth 6 (180°) -->
+        <g class="blinking-tooth" transform="rotate(180, 180, 240)" onclick="openTooth(6, event)">
+          <path d="M 166 100 L 171 68 L 189 68 L 194 100 Z"/>
+          <text x="180" y="86" font-size="10" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(180, 180, 83)">6</text>
         </g>
 
-        <path d="M 168 90 L 172 65 L 188 65 L 192 90 Z" class="static-tooth" transform="rotate(330, 180, 240)"/>
-
-      </g>
-
-      <g id="innerGear" class="rotating-gear-ccw">
-        <circle cx="180" cy="240" r="105" fill="none" stroke="#475569" stroke-width="20"/>
-        
-        <g class="blinking-tooth" transform="rotate(0, 180, 240)" onclick="openTooth(7, event)">
-          <circle cx="180" cy="135" r="12"/>
-          <text x="180" y="138" font-size="9" fill="#0f172a" font-weight="bold" text-anchor="middle">7</text>
+        <!-- Tooth 7 (216°) -->
+        <g class="blinking-tooth" transform="rotate(216, 180, 240)" onclick="openTooth(7, event)">
+          <path d="M 166 100 L 171 68 L 189 68 L 194 100 Z"/>
+          <text x="180" y="86" font-size="10" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(144, 180, 83)">7</text>
         </g>
 
-        <g class="blinking-tooth" transform="rotate(90, 180, 240)" onclick="openTooth(8, event)">
-          <circle cx="180" cy="135" r="12"/>
-          <text x="180" y="138" font-size="9" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(-90, 180, 135)">8</text>
+        <!-- Tooth 8 (252°) -->
+        <g class="blinking-tooth" transform="rotate(252, 180, 240)" onclick="openTooth(8, event)">
+          <path d="M 166 100 L 171 68 L 189 68 L 194 100 Z"/>
+          <text x="180" y="86" font-size="10" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(108, 180, 83)">8</text>
         </g>
 
-        <g class="blinking-tooth" transform="rotate(180, 180, 240)" onclick="openTooth(9, event)">
-          <circle cx="180" cy="135" r="12"/>
-          <text x="180" y="138" font-size="9" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(180, 180, 135)">9</text>
+        <!-- Tooth 9 (288°) -->
+        <g class="blinking-tooth" transform="rotate(288, 180, 240)" onclick="openTooth(9, event)">
+          <path d="M 166 100 L 171 68 L 189 68 L 194 100 Z"/>
+          <text x="180" y="86" font-size="10" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(72, 180, 83)">9</text>
         </g>
 
-        <g class="blinking-tooth" transform="rotate(270, 180, 240)" onclick="openTooth(10, event)">
-          <circle cx="180" cy="135" r="12"/>
-          <text x="180" y="138" font-size="9" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(90, 180, 135)">10</text>
+        <!-- Tooth 10 (324°) -->
+        <g class="blinking-tooth" transform="rotate(324, 180, 240)" onclick="openTooth(10, event)">
+          <path d="M 166 100 L 171 68 L 189 68 L 194 100 Z"/>
+          <text x="180" y="86" font-size="10" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(36, 180, 83)">10</text>
         </g>
-      </g>
 
-      <g>
-        <circle cx="180" cy="240" r="54" fill="#334155" stroke="#f59e0b" stroke-width="2.5"/>
-        
-        <text x="180" y="202" font-size="6" fill="#fef08a" font-weight="bold" text-anchor="middle" letter-spacing="0.5">A LITTLE TEACHERS' DAY SURPRISE</text>
-        <text x="180" y="212" font-size="6.5" fill="#fef08a" font-weight="900" text-anchor="middle" letter-spacing="0.5">TO MR LIM SHIUN CHENG</text>
-        
-        <circle cx="180" cy="240" r="18" fill="#0f172a" stroke="#475569" stroke-width="1.5"/>
-        <rect x="175" y="218" width="10" height="8" fill="#0f172a"/>
       </g>
 
     </svg>
   </div>
 
+  <!-- Message Modal Overlay -->
   <div class="modal" id="modal">
     <div class="modal-content">
-      <div class="modal-title" id="msgTitle">Component #1</div>
+      <div class="modal-title" id="msgTitle">Tooth #1</div>
       <div class="modal-msg" id="msgBody">"Message content..."</div>
       <div class="modal-author" id="msgAuthor">— Mechanical Student</div>
       <button class="btn-close" onclick="closeModal()">Close</button>
@@ -292,16 +300,16 @@
 
   <script>
     const messages = {
-      1: { title: "Component #1 - Outer Tooth (0°)", text: "Happy Teachers’ Day, Lim! 👏 🌻 You may be the new DM, but you certainly didn’t take long to make your presence felt! You act fast, you’re firm, consistent and, importantly, you still care about the students behind the discipline issues. Thank you for taking up the challenge and holding the line when needed. Hopefully, as you go along, you’ll find that sweet spot too.... Keep that consistency and remember that sometimes firmness with a little flexibility can go a long way. Glad to have you with us!", author: "— CY" },
-      2: { title: "Component #2 - Outer Tooth (60°)", text: "Cher let’s go drink kopi. U belanja🫡", author: "— Anaqi" },
-      3: { title: "Component #3 - Outer Tooth (120°)", text: "Thank you for always teaching and helping us. I really appreciate your patience, kindness, and support. You have taught me many things and encouraged me to do my best. Thank you for being a great teacher, Mr. Lim! 😊", author: "— Kim" },
-      4: { title: "Component #4 - Outer Tooth (180°)", text: "To my favorite teacher, Your class is always the one I look forward to. You're so funny and outgoing, and I love how we get to play around while still learning. Thank you for making every lesson fun and memorable. Appreciate you so much! Happy Teacher's Day! 😛", author: "— Hidayah 🥳" },
-      5: { title: "Component #5 - Outer Tooth (240°)", text: "Thanks 4 teaching me you very funny 10/10. Will you give me money if I sent a appreciation message 🤗🤗", author: "— Angry bird's Dora to her backpack" },
-      6: { title: "Component #6 - Outer Tooth (300°)", text: "Thank you for being my lecturer for 2 years for being there for me and giving me every opportunity that I can help myself in the future", author: "— Ashton" },
-      7: { title: "Component #7 - Inner Ring North", text: "hi you’re great and i like your teaching even tho sometimes you pmo but you are great ", author: "— fungi" },
-      8: { title: "Component #8 - Inner Ring East", text: "thank you for the past 2 years of my ite journey . honestly i felt that i have grown quite a lot throughout this very short period of my life and i really appreciate all the efforts , scoldings and nagging all in a good way . without u , i honestly dont know what i would be doing with my life right now. hopefully we get to see each other one day and know that i will never meet another lecturer like u", author: "— jaeden" },
-      9: { title: "Component #9 - Inner Ring South", text: "i want to say thank you for all the support you have gave me, thanks u for making me what i am", author: "— nabil" },
-      10: { title: "Component #10 - Inner Ring West", text: "We appreciate the thoughtful effort and commitment you bring to everything you do. Your contribution to Mechanical Engineering and to the wider school community is sincerely appreciated. The consistency and care behind your work have a lasting positive impact. We celebrate and appreciate you this Teachers' Day. Thank you for all that you do.", author: "— SOE SHW Committee" }
+      1: { title: "Tooth #1 (0°)", text: "Happy Teachers’ Day, Lim! 👏 🌻 You may be the new DM, but you certainly didn’t take long to make your presence felt! You act fast, you’re firm, consistent and, importantly, you still care about the students behind the discipline issues. Thank you for taking up the challenge and holding the line when needed. Hopefully, as you go along, you’ll find that sweet spot too.... Keep that consistency and remember that sometimes firmness with a little flexibility can go a long way. Glad to have you with us!", author: "— CY" },
+      2: { title: "Tooth #2 (36°)", text: "Cher let’s go drink kopi. U belanja🫡", author: "— Anaqi" },
+      3: { title: "Tooth #3 (72°)", text: "Thank you for always teaching and helping us. I really appreciate your patience, kindness, and support. You have taught me many things and encouraged me to do my best. Thank you for being a great teacher, Mr. Lim! 😊", author: "— Kim" },
+      4: { title: "Tooth #4 (108°)", text: "To my favorite teacher, Your class is always the one I look forward to. You're so funny and outgoing, and I love how we get to play around while still learning. Thank you for making every lesson fun and memorable. Appreciate you so much! Happy Teacher's Day! 😛", author: "— Hidayah 🥳" },
+      5: { title: "Tooth #5 (144°)", text: "Thanks 4 teaching me you very funny 10/10. Will you give me money if I sent a appreciation message 🤗🤗", author: "— Angry bird's Dora to her backpack" },
+      6: { title: "Tooth #6 (180°)", text: "Thank you for being my lecturer for 2 years for being there for me and giving me every opportunity that I can help myself in the future", author: "— Ashton" },
+      7: { title: "Tooth #7 (216°)", text: "hi you’re great and i like your teaching even tho sometimes you pmo but you are great ", author: "— fungi" },
+      8: { title: "Tooth #8 (252°)", text: "thank you for the past 2 years of my ite journey . honestly i felt that i have grown quite a lot throughout this very short period of my life and i really appreciate all the efforts , scoldings and nagging all in a good way . without u , i honestly dont know what i would be doing with my life right now. hopefully we get to see each other one day and know that i will never meet another lecturer like u", author: "— jaeden" },
+      9: { title: "Tooth #9 (288°)", text: "i want to say thank you for all the support you have gave me, thanks u for making me what i am", author: "— nabil" },
+      10: { title: "Tooth #10 (324°)", text: "We appreciate the thoughtful effort and commitment you bring to everything you do. Your contribution to Mechanical Engineering and to the wider school community is sincerely appreciated. The consistency and care behind your work have a lasting positive impact. We celebrate and appreciate you this Teachers' Day. Thank you for all that you do.", author: "— SOE SHW Committee" }
     };
 
     let isBusy = false;
@@ -311,14 +319,12 @@
       isBusy = true;
 
       const mainGear = document.getElementById('mainGear');
-      const innerGear = document.getElementById('innerGear');
       const gearSvg = document.getElementById('gearSvg');
 
-      // Pause counter-rotating gear animations
+      // Pause gear rotation animation
       mainGear.classList.add('paused');
-      innerGear.classList.add('paused');
 
-      // Zoom into clicked component
+      // Zoom into clicked tooth location
       const svgRect = gearSvg.getBoundingClientRect();
       const clickX = event.clientX - svgRect.left;
       const clickY = event.clientY - svgRect.top;
@@ -338,12 +344,10 @@
       document.getElementById('modal').classList.remove('active');
       const gearSvg = document.getElementById('gearSvg');
       const mainGear = document.getElementById('mainGear');
-      const innerGear = document.getElementById('innerGear');
 
       setTimeout(() => {
         gearSvg.style.transform = 'scale(1)';
         mainGear.classList.remove('paused');
-        innerGear.classList.remove('paused');
         isBusy = false;
       }, 300);
     }
