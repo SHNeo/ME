@@ -184,7 +184,7 @@
 
   <div class="header">
     <h1>Happy Teachers' Day 2026</h1>
-    <p>Tap any of the glowing gear components!</p>
+    <p>Tap any of the 10 glowing gear components to unlock a message!</p>
   </div>
 
   <div class="viewport">
@@ -195,45 +195,10 @@
       <circle cx="180" cy="240" r="165" fill="none" stroke="#334155" stroke-width="1" stroke-dasharray="6,6"/>
       <circle cx="180" cy="240" r="110" fill="none" stroke="#334155" stroke-width="1" stroke-dasharray="6,6"/>
 
-      <g class="blinking-tooth" onclick="openTooth(11, event)">
-        <circle cx="180" cy="240" r="48" fill="#334155" stroke="#f59e0b" stroke-width="2.5"/>
-        
-        <text x="180" y="206" font-size="6.5" fill="#fef08a" font-weight="bold" text-anchor="middle" letter-spacing="0.5">A LITTLE TEACHERS' DAY SURPRISE</text>
-        <text x="180" y="215" font-size="6.5" fill="#fef08a" font-weight="bold" text-anchor="middle" letter-spacing="0.5">TO MR LIM SHIUN CHENG</text>
-        
-        <circle cx="180" cy="240" r="18" fill="#0f172a"/>
-        <rect x="175" y="218" width="10" height="8" fill="#0f172a"/>
-        <text x="180" y="243" font-size="10" fill="#f59e0b" font-weight="bold" text-anchor="middle">11</text>
-      </g>
-
-      <g id="innerGear" class="rotating-gear-ccw">
-        <circle cx="180" cy="240" r="105" fill="none" stroke="#475569" stroke-width="18"/>
-        
-        <g class="blinking-tooth" transform="rotate(0, 180, 240)" onclick="openTooth(7, event)">
-          <circle cx="180" cy="135" r="11"/>
-          <text x="180" y="138" font-size="8.5" fill="#0f172a" font-weight="bold" text-anchor="middle">7</text>
-        </g>
-
-        <g class="blinking-tooth" transform="rotate(90, 180, 240)" onclick="openTooth(8, event)">
-          <circle cx="180" cy="135" r="11"/>
-          <text x="180" y="138" font-size="8.5" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(-90, 180, 135)">8</text>
-        </g>
-
-        <g class="blinking-tooth" transform="rotate(180, 180, 240)" onclick="openTooth(9, event)">
-          <circle cx="180" cy="135" r="11"/>
-          <text x="180" y="138" font-size="8.5" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(180, 180, 135)">9</text>
-        </g>
-
-        <g class="blinking-tooth" transform="rotate(270, 180, 240)" onclick="openTooth(10, event)">
-          <circle cx="180" cy="135" r="11"/>
-          <text x="180" y="138" font-size="8.5" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(90, 180, 135)">10</text>
-        </g>
-      </g>
-
       <g id="mainGear" class="rotating-gear-cw">
         
         <circle cx="182" cy="242" r="150" fill="#0f172a" />
-        <circle cx="180" cy="240" r="150" fill="none" stroke="#334155" stroke-width="12"/>
+        <circle cx="180" cy="240" r="150" fill="#1e293b" stroke="#334155" stroke-width="6"/>
 
         <g class="blinking-tooth" transform="rotate(0, 180, 240)" onclick="openTooth(1, event)">
           <path d="M 168 90 L 172 65 L 188 65 L 192 90 Z"/>
@@ -279,6 +244,40 @@
 
       </g>
 
+      <g id="innerGear" class="rotating-gear-ccw">
+        <circle cx="180" cy="240" r="105" fill="none" stroke="#475569" stroke-width="20"/>
+        
+        <g class="blinking-tooth" transform="rotate(0, 180, 240)" onclick="openTooth(7, event)">
+          <circle cx="180" cy="135" r="12"/>
+          <text x="180" y="138" font-size="9" fill="#0f172a" font-weight="bold" text-anchor="middle">7</text>
+        </g>
+
+        <g class="blinking-tooth" transform="rotate(90, 180, 240)" onclick="openTooth(8, event)">
+          <circle cx="180" cy="135" r="12"/>
+          <text x="180" y="138" font-size="9" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(-90, 180, 135)">8</text>
+        </g>
+
+        <g class="blinking-tooth" transform="rotate(180, 180, 240)" onclick="openTooth(9, event)">
+          <circle cx="180" cy="135" r="12"/>
+          <text x="180" y="138" font-size="9" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(180, 180, 135)">9</text>
+        </g>
+
+        <g class="blinking-tooth" transform="rotate(270, 180, 240)" onclick="openTooth(10, event)">
+          <circle cx="180" cy="135" r="12"/>
+          <text x="180" y="138" font-size="9" fill="#0f172a" font-weight="bold" text-anchor="middle" transform="rotate(90, 180, 135)">10</text>
+        </g>
+      </g>
+
+      <g>
+        <circle cx="180" cy="240" r="54" fill="#334155" stroke="#f59e0b" stroke-width="2.5"/>
+        
+        <text x="180" y="202" font-size="6" fill="#fef08a" font-weight="bold" text-anchor="middle" letter-spacing="0.5">A LITTLE TEACHERS' DAY SURPRISE</text>
+        <text x="180" y="212" font-size="6.5" fill="#fef08a" font-weight="900" text-anchor="middle" letter-spacing="0.5">TO MR LIM SHIUN CHENG</text>
+        
+        <circle cx="180" cy="240" r="18" fill="#0f172a" stroke="#475569" stroke-width="1.5"/>
+        <rect x="175" y="218" width="10" height="8" fill="#0f172a"/>
+      </g>
+
     </svg>
   </div>
 
@@ -302,7 +301,7 @@
       7: { title: "Component #7 - Inner Ring North", text: "hi you’re great and i like your teaching even tho sometimes you pmo but you are great ", author: "— fungi" },
       8: { title: "Component #8 - Inner Ring East", text: "thank you for the past 2 years of my ite journey . honestly i felt that i have grown quite a lot throughout this very short period of my life and i really appreciate all the efforts , scoldings and nagging all in a good way . without u , i honestly dont know what i would be doing with my life right now. hopefully we get to see each other one day and know that i will never meet another lecturer like u", author: "— jaeden" },
       9: { title: "Component #9 - Inner Ring South", text: "i want to say thank you for all the support you have gave me, thanks u for making me what i am", author: "— nabil" },
-      10: { title: "Component #10 - Inner Ring West", text: "We appreciate the thoughtful effort and commitment you bring to everything you do. Your contribution to Mechanical Engineering and to the wider school community is sincerely appreciated. The consistency and care behind your work have a lasting positive impact. We celebrate and appreciate you this Teachers' Day. Thank you for all that you do.", author: "— SOE SHW Committee" },
+      10: { title: "Component #10 - Inner Ring West", text: "We appreciate the thoughtful effort and commitment you bring to everything you do. Your contribution to Mechanical Engineering and to the wider school community is sincerely appreciated. The consistency and care behind your work have a lasting positive impact. We celebrate and appreciate you this Teachers' Day. Thank you for all that you do.", author: "— SOE SHW Committee" }
     };
 
     let isBusy = false;
